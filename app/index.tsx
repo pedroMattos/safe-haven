@@ -1,12 +1,15 @@
-import { View, Text, StyleSheet, Button, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Button, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Colors } from '@/constants/Colors'
-import { useColorScheme } from '@/hooks/useColorScheme.web';
 import { SimpleList } from '@/moks/ListOfSecrets'
-import { Secret } from '@/components/Secret';
+import { Secret, SecretProps } from '@/components/Secret';
+import { type Href, useRouter } from 'expo-router';
 
 const app = () => {
-  const colorScheme = useColorScheme();
+  const router = useRouter()
+
+  const pathToSecret = (hasPassword: boolean): '/secret/[id]/auth' | '/secret/[id]' => {
+    return hasPassword ? '/secret/[id]/auth' : '/secret/[id]'
+  }
 
   return (
     <View style={styles.container}>
@@ -20,7 +23,9 @@ const app = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}
           renderItem={({ item }) => (
-            <Secret {...item} />
+            <TouchableOpacity onPress={() => router.push({ pathname: pathToSecret(!!item.password), params: { id: item.id } })}>
+              <Secret {...item} />
+            </TouchableOpacity>
           )}
         />
         <Button
