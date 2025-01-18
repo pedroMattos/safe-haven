@@ -31,8 +31,8 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(user)" options={{ headerShown: false }} />
-        <Stack.Screen name="secret/[id]" options={{ title: 'Segredo' }} />
-        <Stack.Screen name="secret/[id]/auth" options={{ title: 'Segredo protegido' }} />
+        <Stack.Screen name="secret/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="secret/[id]/auth" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ headerShown: false, title: 'Home' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
