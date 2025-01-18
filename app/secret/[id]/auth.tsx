@@ -1,16 +1,28 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { useLocalSearchParams } from 'expo-router/build/hooks'
+import { useRouter } from 'expo-router/build/hooks'
 import { AuthForm } from './components/AuthForm';
+import { Appbar } from 'react-native-paper';
 
 const AuthScreen = () => {
-  const local = useLocalSearchParams();
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Arquivo protegido por senha</Text>
-      <Text style={styles.subtitle}>Digite a senha corretamente para continuar</Text>
-      <AuthForm />
-    </View>
+    <>
+      <Appbar.Header elevated>
+        <Appbar.BackAction onPress={handleBack} />
+        <Appbar.Content title="Segredo Protegido" />
+      </Appbar.Header>
+        <View style={styles.container}>
+          <Text style={styles.title}>Arquivo protegido por senha</Text>
+          <Text style={styles.subtitle}>Digite a senha corretamente para continuar</Text>
+          <AuthForm />
+        </View>
+    </>
   )
 }
 
