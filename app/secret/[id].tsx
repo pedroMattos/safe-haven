@@ -1,14 +1,27 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { useLocalSearchParams } from 'expo-router/build/hooks'
+import { useLocalSearchParams, useRouter } from 'expo-router/build/hooks'
+import { Appbar } from 'react-native-paper';
 
 const secret = () => {
   const local = useLocalSearchParams();
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Secret Page</Text>
-      <Text style={styles.subtitle}>ID: {local.id}</Text>
-    </View>
+    <>
+      <Appbar.Header elevated>
+        <Appbar.BackAction onPress={handleBack} />
+        <Appbar.Content title="Segredo Protegido" />
+      </Appbar.Header>
+      <View style={styles.container}>
+        <Text style={styles.title}>Secret Page</Text>
+        <Text style={styles.subtitle}>ID: {local.id}</Text>
+      </View>
+    </>
   )
 }
 
