@@ -1,44 +1,65 @@
-import { useState } from "react"
-import { Button, StyleSheet, TextInput, View } from "react-native"
+import { useMemo, useState } from "react"
+import { StyleSheet } from "react-native"
+import { Button, Card, TextInput } from "react-native-paper"
 
 export const AuthForm = () => {
   const [password, onChangePassword] = useState<string>()
+  const [isSecureText, setIsSecureText] = useState<boolean>(true)
+
+  const toggleSecureText = () => setIsSecureText((value) => !value)
+
+  const Icon = useMemo(() => {
+    if (isSecureText) return <TextInput.Icon icon="eye" onPress={toggleSecureText} />
+
+    return <TextInput.Icon icon="eye-off" onPress={toggleSecureText} />
+  }, [isSecureText])
 
   return (
-    <View style={styles.box}>
-      <TextInput
-        onChangeText={onChangePassword}
-        placeholder="Digite a senha"
-        value={password}
-        style={styles.input}
-        placeholderTextColor={'black'}
-        secureTextEntry
-      />
-      <Button title="Desbloquear" />
-    </View>
+    <Card style={styles.box}>
+      <Card.Content>
+        <TextInput
+          onChangeText={onChangePassword}
+          placeholder="Digite a senha"
+          mode="outlined"
+          value={password}
+          style={styles.input}
+          placeholderTextColor={'black'}
+          secureTextEntry={isSecureText}
+          right={Icon}
+          dense
+        />
+      </Card.Content>
+      <Card.Actions>
+        <Button style={styles.button} icon="lock-open" mode="contained" onPress={() => alert('Desbloquear')}>
+          Desbloquear
+        </Button>
+      </Card.Actions>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    width: '90%',
-    margin: 12,
+    width: '100%',
     borderWidth: 1,
-    padding: 10,
     borderColor: 'white',
     color: 'black',
-    borderRadius: 5
+    borderRadius: 5,
   },
   box: {
     marginTop: 50,
-    height: 200,
     width: '90%',
-    backgroundColor: '#d9d9d9',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    boxShadow: '14px 9px 19px -3px rgba(0,0,0,0.05)'
+    borderCurve: 'continuous',
+    paddingTop: 10,
+    paddingBottom: 10 
   },
+  button: {
+    width: '100%',
+    marginTop: 30
+  },
+  icon: {
+    marginTop: 10
+  }
 });
