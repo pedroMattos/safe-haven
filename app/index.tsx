@@ -4,6 +4,7 @@ import { SimpleList } from '@/moks/ListOfSecrets'
 import { Secret } from '@/components/Secret';
 import { useRouter } from 'expo-router';
 import { FAB, PaperProvider } from 'react-native-paper';
+import { CloudCount } from '@/components/ui/CloudCount';
 
 const app = () => {
   const router = useRouter()
@@ -16,9 +17,15 @@ const app = () => {
     <PaperProvider>
       <View style={styles.container}>
         <SafeAreaView>
-          <Text style={styles.text}>Nenhum arquivo salvo</Text>
-          <Text style={styles.tinyText}>Para criar um novo arquivo clique no botão abaixo</Text>
+          {!SimpleList.length && <View>
+            <Text style={styles.text}>Nenhum arquivo salvo</Text>
+            <Text style={styles.tinyText}>Para criar um novo arquivo clique no botão abaixo</Text>
+          </View>}
 
+          <View style={styles.headerContainer}>
+            <Text style={styles.titleText}>Seus Arquivos</Text>
+            <CloudCount count={2} />
+          </View>
           <FlatList
             data={SimpleList}
             keyExtractor={(item) => item.id.toString()}
@@ -35,7 +42,6 @@ const app = () => {
         <FAB
           style={styles.fab}
           icon="plus"
-          label='Adicionar novo'
           animated
         />
       </View>
@@ -49,9 +55,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
     padding: 10,
     backgroundColor: 'white'
+  },
+  headerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 12,
+    paddingRight: 12,
+    marginBottom: 20
   },
   contentContainer: {
     paddingTop: 10,
@@ -62,6 +76,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   tinyText: {
     fontSize: 12,

@@ -18,11 +18,11 @@ export default function useProtectedText({ hasPassword, isProtected }: UseProtec
 
   // TODO explicar o que significa estar encriptado
   const securityDetails = (): { text: string, status: SecurityStatus } => {
-    if (hasPassword && isProtected) return { text: 'Arquivo altamente protegido', status: SecurityStatus.ALL_SECURE }
-    else if (hasPassword) return { text: 'Arquivo protegido por senha', status: SecurityStatus.SECURE }
-    else if (isProtected) return { text: 'Arquivo encriptado', status: SecurityStatus.ENCRIPTED }
+    if (hasPassword && isProtected) return { text: 'Altamente seguro', status: SecurityStatus.ALL_SECURE }
+    else if (hasPassword) return { text: 'Seguro', status: SecurityStatus.SECURE }
+    else if (isProtected) return { text: 'Encriptado', status: SecurityStatus.ENCRIPTED }
 
-    return { text: 'Arquivo inseguro', status: SecurityStatus.INSECURE }
+    return { text: 'Inseguro', status: SecurityStatus.INSECURE }
   }
 
   return {
