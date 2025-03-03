@@ -3,7 +3,7 @@ import React from 'react'
 import { SimpleList } from '@/moks/ListOfSecrets'
 import { Secret } from '@/components/Secret';
 import { useRouter } from 'expo-router';
-import { FAB, PaperProvider } from 'react-native-paper';
+import { FAB, Icon, PaperProvider } from 'react-native-paper';
 import { CloudCount } from '@/components/ui/CloudCount';
 
 const app = () => {
@@ -39,6 +39,12 @@ const app = () => {
           />
         </SafeAreaView>
 
+        <FAB
+          style={styles.cloudFab}
+          icon={() => <Icon source="cloud" size={18} color={'black'} />}
+          animated
+          customSize={34}
+        />
         <FAB
           style={styles.fab}
           icon="plus"
@@ -94,5 +100,13 @@ const styles = StyleSheet.create({
     right: 0,
     margin: 16,
     bottom: 0
-  }
+  },
+  cloudFab: {
+    position: 'absolute',
+    right: 10,
+    margin: 16,
+    bottom: 70,
+    borderRadius: 100,
+    backgroundColor: 'white'
+  },
 })
