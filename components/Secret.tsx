@@ -12,7 +12,7 @@ export interface SecretProps {
   inCloud: boolean
 }
 
-export function Secret({ name, id, isProtected, date, password }: SecretProps) {
+export function Secret({ name, id, isProtected, date, password, inCloud }: SecretProps) {
   const { securityStatusText, securityStatus } = useProtectedText({
     isProtected,
     hasPassword: !!password,
@@ -24,7 +24,10 @@ export function Secret({ name, id, isProtected, date, password }: SecretProps) {
     <View style={[styles.container, status.container]}>
       <Icon size={32} color={status.icon?.color} source={status.icon?.name} />
       <View>
-        <Text style={[styles.name, status.name]}>{name}</Text>
+        <View style={styles.titleContainer}>
+          <Text style={[styles.name, status.name]}>{name}</Text>
+          {inCloud && <Icon source="cloud" color={status.icon?.color} size={14} />}
+        </View>
         <View style={styles.detailsContainer}>
           <Text style={[styles.content, status.content]}>{securityStatusText}</Text>
           <Text style={[styles.content, status.content]}>●</Text>
@@ -75,6 +78,11 @@ const styles = StyleSheet.create({
   },
   content: {
     color: "#49779c",
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 8
   },
   container: {
     display: "flex",
