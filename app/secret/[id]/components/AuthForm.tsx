@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
-import { StyleSheet } from "react-native"
-import { Button, Card, TextInput } from "react-native-paper"
+import { StyleSheet, Text, View } from "react-native"
+import { Button, Card, TextInput, Icon as PaperIcon } from "react-native-paper"
 
 export const AuthForm = () => {
   const [password, onChangePassword] = useState<string>()
@@ -16,6 +16,11 @@ export const AuthForm = () => {
 
   return (
     <Card style={styles.box}>
+      <View style={styles.titleIcon}>
+        <PaperIcon source="lock" size={48} color="rgb(107 114 128)" />
+      </View>
+      <Text style={styles.title}>Arquivo protegido</Text>
+      <Text style={styles.subtitle}>Digite sua senha para continuar</Text>
       <Card.Content>
         <TextInput
           onChangeText={onChangePassword}
@@ -45,21 +50,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     color: 'black',
-    borderRadius: 5,
+    borderRadius: 4,
+    marginTop: 20
   },
   box: {
-    marginTop: 50,
     width: '90%',
     display: 'flex',
-    borderCurve: 'continuous',
     paddingTop: 10,
-    paddingBottom: 10 
+    paddingBottom: 10,
+    alignItems: 'center',
+    borderRadius: 4
   },
   button: {
     width: '100%',
-    marginTop: 30
+    marginTop: 30,
+    borderRadius: 2
   },
   icon: {
     marginTop: 10
-  }
+  },
+  titleIcon: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  subtitle: {
+    fontSize: 14,
+    marginTop: 10,
+    textAlign: 'center',
+    color: 'rgb(107 114 128)'
+  },
 });
